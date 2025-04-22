@@ -1,0 +1,15 @@
+{
+  "chose_picker": "Chose...",
+  "edit_product_title": "Edit Product",
+  "pickAnImage": "Pick An Image (Optionaly)",
+  "getStartetWelcomeTitle": "Get Startet",
+  "plsEnterPassword": "Pls enter email",
+  "emailLabel": "Email",
+  "laceholderEnterEmail": "Enter Email",
+  "passwordLabel": "Password",
+  "placeholderEnterPassword": "Enter Password",
+  "forgotPasswordTitle": "Забили пароль?",
+  "enterTitleLabel": "Войти",
+  "agreedamantData": "I agree to the processing"
+  "min6Symbols" : "Minimum 6 symbol'"
+}

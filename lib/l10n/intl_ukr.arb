@@ -1,0 +1,15 @@
+{
+  "chose_picker": "Вибрати...",
+  "edit_product_title": "Редагування продукту",
+  "pickAnImage": "Pick An Image (Optionaly)",
+  "getStartetWelcomeTitle": "Давайте розпочнем",
+  "plsEnterPassword": "Pls enter email",
+  "emailLabel": "Email",
+  "laceholderEnterEmail": "Enter Email",
+  "passwordLabel": "Password",
+  "placeholderEnterPassword": "Enter Password",
+  "forgotPasswordTitle": "Забили пароль?",
+  "enterTitleLabel": "Войти",
+  "agreedamantData": "I agree to the processing"
+  "min6Symbols" : "Минимум 6 цифр'"
+}

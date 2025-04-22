@@ -1,0 +1,17 @@
+
+include: package:flutter_lints/flutter.yaml
+
+linter:
+  rules: 
+    avoid_print: true
+    prefer_single_quotes: true
+# TODO: decide to learn more about this file by that details - https://dart.dev/guides/language/analysis-options
+# TODO: also check rules below, that was written by best practices (don't just uncomment, read more before):
+analyzer:
+  plugins:
+    - dart_code_metrics
+  exclude:
+    - /**/*.g.dart
+    - /**/injection.config.dart
+    - lib/core/di/injection.config.dart
+    - /**/assets.gen.dart
