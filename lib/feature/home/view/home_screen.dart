@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:sound_level_meter/feature/bottom_bar/bottom_bar.dart';
+import 'package:sound_level_meter/feature/home/bloc/home_bloc.dart';
+import 'package:sound_level_meter/feature/home/repository/home_repository.dart';
 import 'package:sound_level_meter/feature/ui/scaffold.dart';
 import 'package:sound_level_meter/router/router.dart';
 
@@ -10,6 +12,7 @@ import '../../info/view.dart';
 
 @RoutePage()
 class MyHomeScreen extends StatefulWidget {
+
   const MyHomeScreen({super.key});
 
   @override
@@ -26,7 +29,7 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
       TextEditingController();
   final ScrollController _scrollController = ScrollController();
   bool showOnlyWorking = false;
-  // EmailValidatorFlutter validator = EmailValidatorFlutter();
+      final _homeBloc = HomeBloc(HomeRepository());
 
   List<Map<String, dynamic>> items = [
     {
@@ -58,6 +61,11 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
       'brokenQuantity': 3,
     },
   ];
+  @override
+  void initState() {
+    _homeBloc.add(HomeStarted());
+    super.initState();
+  }
 
   void toogleToPasswordView() {
     setState(() {
@@ -800,7 +808,10 @@ class CustomSideBar extends StatelessWidget {
             },
           ),
           ListTile(
-            leading: Icon(Icons.exit_to_app, color: Colors.white,),
+            leading: Icon(
+              Icons.exit_to_app,
+              color: Colors.white,
+            ),
             title: Text('Exit', style: TextStyle(color: Colors.white)),
             onTap: () {
               print('open settings screen');

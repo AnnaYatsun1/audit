@@ -1,0 +1,11 @@
+name: bloc
+description: A template for creating a BLoC class with a repository.
+version: 0.1.0
+
+vars:
+  bloc_name:
+    type: string
+    description: The name of the BLoC
+  feature_name:
+    type: string
+    description: The feature folder name
