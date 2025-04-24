@@ -1,6 +1,8 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
+import 'package:sound_level_meter/feature/qrScanner/bloc/scanner/bloc/qr_scanner_bloc.dart';
 
 @RoutePage()
 class QRScannerScreen extends StatefulWidget {
@@ -29,36 +31,45 @@ class _QRScannerScreenState extends State<QRScannerScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Сканер QR-кодов'),
-        backgroundColor: Colors.black,
-      ),
-      body: Stack(
-        children: [
-          MobileScanner(
-            onDetect: (capture) {
-              final List<Barcode> barcodes = capture.barcodes;
-              for (final barcode in barcodes) {
-                if (barcode.rawValue != null) {
-                  final String code = barcode.rawValue!;
-                  print('QR-код обнаружен: $code');
-                  Navigator.pop(context, code); // Возвращаемся с данными
-                }
-              }
-            },
-            errorBuilder: (context, error, child) {
-              return Center(
-                child: Text(
-                  'Ошибка камеры: $error',
-                  style: const TextStyle(color: Colors.red),
+        appBar: AppBar(
+          title: const Text('Сканер QR-кодов'),
+          backgroundColor: Colors.black,
+        ),
+        body: BlocBuilder<QrScannerBloc, QrScannerState>(
+            builder: (context, state) {
+          if (state is QrScannerInitial) {
+            return const Center(child: CircularProgressIndicator());
+          } else if (state is QrScannerLoaded) {
+            return Stack(
+              children: [
+                MobileScanner(
+                  onDetect: (capture) {
+                    final List<Barcode> barcodes = capture.barcodes;
+                    for (final barcode in barcodes) {
+                      if (barcode.rawValue != null) {
+                        final String code = barcode.rawValue!;
+                        print('QR-код обнаружен: $code');
+                        Navigator.pop(context, code); // Возвращаемся с данными
+                      }
+                    }
+                  },
+                  errorBuilder: (context, error, child) {
+                    return Center(
+                      child: Text(
+                        'Ошибка камеры: $error',
+                        style: const TextStyle(color: Colors.red),
+                      ),
+                    );
+                  },
                 ),
-              );
-            },
-          ),
-          _buildOverlay(context),
-        ],
-      ),
-    );
+                _buildOverlay(context),
+              ],
+            );
+          } else if (state is QrScannerError) {
+            return Center(child: Text('Ошибка: ${state.message}'));
+          }
+          return const SizedBox.shrink();
+        }));
   }
 
   Widget _buildOverlay(BuildContext context) {
