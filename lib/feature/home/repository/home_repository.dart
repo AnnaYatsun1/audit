@@ -1,8 +1,7 @@
 import 'package:sound_level_meter/feature/home/model/technique_list.dart';
 
 class HomeRepository {
-  Future<List<TechniqueList>> loadTechnickList() async {
-    List<Map<String, dynamic>> items = [
+      List<Map<String, dynamic>> items = [
       {
         'name': 'iPhone 13',
         'brand': 'Apple',
@@ -32,7 +31,14 @@ class HomeRepository {
         'brokenQuantity': 3,
       },
     ];
+
+    Future<List<TechniqueList>> loadTechnickList() async {
     return items.map((item) => TechniqueList.fromJson(item)).toList();
     
+  }
+
+  Future<List<TechniqueList>> deleteItem(int id) async {
+    items.removeAt(id);  
+    return items.map((item) => TechniqueList.fromJson(item)).toList();
   }
 }

@@ -1,3 +1,5 @@
 bricks:
   bloc:
     path: .mason/bloc
+  bloc_builder:
+    path: .mason/bloc_builder

@@ -1,9 +1,5 @@
-  import 'dart:async';
-
   import 'package:flutter/material.dart';
-import 'package:sound_level_meter/feature/home/view/home_screen.dart';
-  import 'package:sound_level_meter/main.dart';
-
+  
   class CustomScaffold extends StatefulWidget {
     const CustomScaffold({
       super.key,
@@ -106,3 +102,69 @@ import 'package:sound_level_meter/feature/home/view/home_screen.dart';
     @override
     Size get preferredSize => const Size.fromHeight(kToolbarHeight);
   }
+
+
+
+class CustomSideBar extends StatelessWidget {
+  const CustomSideBar({super.key});
+// [Color.fromARGB(255, 0, 0, 0), Color.fromARGB(255, 28, 26, 26)];
+  @override
+  Widget build(BuildContext context) {
+    return Drawer(
+      backgroundColor: Color.fromARGB(255, 28, 26, 26),
+      child: ListView(
+        padding: EdgeInsets.zero,
+        children: [
+          UserAccountsDrawerHeader(
+            decoration: BoxDecoration(color: Colors.black
+                // backgroundBlendMode: BlendMode.colorDodge
+                ),
+            onDetailsPressed: () {
+              print('open detail Screen');
+            },
+            accountName: Text(''),
+            accountEmail: Text(''),
+            currentAccountPicture: CircleAvatar(
+              child: ClipOval(
+                child: Icon(Icons.supervised_user_circle),
+              ),
+            ),
+          ),
+          ListTile(
+            leading: Icon(
+              Icons.language,
+              color: Colors.white,
+            ),
+            title: Text(
+              'Languages',
+              style: TextStyle(color: Colors.white),
+            ),
+            onTap: () {
+              print('open settings screen');
+            },
+          ),
+          ListTile(
+            leading: Icon(
+              Icons.settings,
+              color: Colors.white,
+            ),
+            title: Text('Setting', style: TextStyle(color: Colors.white)),
+            onTap: () {
+              print('open settings screen');
+            },
+          ),
+          ListTile(
+            leading: Icon(
+              Icons.exit_to_app,
+              color: Colors.white,
+            ),
+            title: Text('Exit', style: TextStyle(color: Colors.white)),
+            onTap: () {
+              print('open settings screen');
+            },
+          ),
+        ],
+      ),
+    );
+  }
+}

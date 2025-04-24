@@ -15,3 +15,9 @@ class HomeLoaded extends HomeState {
 
   HomeLoaded(this.techniqueList);
 }
+
+class HomeError extends HomeState {
+  final Object message;
+
+  const HomeError(this.message);
+}

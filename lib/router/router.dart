@@ -43,8 +43,9 @@ class AppRouter extends RootStackRouter {
             AutoRoute(page: MicroRoute.page, path: 'micro')
           ],
         ),
-           AutoRoute(page: InfoRoute.page, path: '/info'),
+          AutoRoute(page: InfoRoute.page, path: '/info'),
           AutoRoute(page: SattingsRoute.page, path: '/settings'),
-          AutoRoute(page: QrCraterRoute.page, path: '/qrCreater')
+          AutoRoute(page: QRScannerRoute.page, path: '/qrCreater'),
+          AutoRoute(page: SearchRoute.page, path: '/search')
       ];
 }

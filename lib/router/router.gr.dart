@@ -75,17 +75,17 @@ class MyHomeRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [QrCraterScreen]
-class QrCraterRoute extends PageRouteInfo<void> {
-  const QrCraterRoute({List<PageRouteInfo>? children})
-    : super(QrCraterRoute.name, initialChildren: children);
+/// [QRScannerScreen]
+class QRScannerRoute extends PageRouteInfo<void> {
+  const QRScannerRoute({List<PageRouteInfo>? children})
+    : super(QRScannerRoute.name, initialChildren: children);
 
-  static const String name = 'QrCraterRoute';
+  static const String name = 'QRScannerRoute';
 
   static PageInfo page = PageInfo(
     name,
     builder: (data) {
-      return const QrCraterScreen();
+      return const QRScannerScreen();
     },
   );
 }
@@ -118,6 +118,22 @@ class SavesRoute extends PageRouteInfo<void> {
     name,
     builder: (data) {
       return const SavesScreen();
+    },
+  );
+}
+
+/// generated route for
+/// [SearchScreen]
+class SearchRoute extends PageRouteInfo<void> {
+  const SearchRoute({List<PageRouteInfo>? children})
+    : super(SearchRoute.name, initialChildren: children);
+
+  static const String name = 'SearchRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const SearchScreen();
     },
   );
 }

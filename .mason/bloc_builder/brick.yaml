@@ -1,0 +1,11 @@
+name: bloc_builder
+description: A template for generating a BlocBuilder widget.
+version: 0.1.0
+
+vars:
+  bloc_name:
+    type: string
+    description: The base name of the Bloc (e.g. Home, CryptoList)
+  bloc_instance:
+    type: string
+    description: The instance name of the Bloc (e.g. _homeBloc)

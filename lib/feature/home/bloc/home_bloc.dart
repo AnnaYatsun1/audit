@@ -11,8 +11,21 @@ part 'home_state.dart';
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
   HomeBloc(this._repository) : super(const HomeInitial()) {
     on<HomeStarted>((event, emit) async {
-      final techniqueList = await _repository.loadTechnickList();
-      emit(HomeLoaded(techniqueList));
+      try {
+        emit(HomeLoading());
+        final techniqueList = await _repository.loadTechnickList();
+        emit(HomeLoaded(techniqueList));
+      } on Exception catch (e) {
+        emit(HomeError(e));
+      }
+    });
+      on<HomeItemDeleted>((event, emit) async {
+      try {
+        final udpateList = await _repository.deleteItem(event.index);
+        emit(HomeLoaded(udpateList));
+      } on Exception catch (e) {
+        emit(HomeError(e));
+      }
     });
   }
 
