@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:sound_level_meter/feature/bottom_bar/bottom_bar.dart';
-import 'package:sound_level_meter/feature/settings/view.dart';
+import 'package:sound_level_meter/feature/edite/view.dart';
 import 'package:sound_level_meter/feature/ui/scaffold.dart';
 import 'package:sound_level_meter/feature/ui/theme/theme.dart';
 import 'package:sound_level_meter/router/router.dart';

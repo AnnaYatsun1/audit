@@ -41,4 +41,8 @@ class HomeRepository {
     items.removeAt(id);  
     return items.map((item) => TechniqueList.fromJson(item)).toList();
   }
+
+  applayFilters() async {
+
+  }
 }

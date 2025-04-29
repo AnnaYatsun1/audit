@@ -19,9 +19,18 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
         emit(HomeError(e));
       }
     });
-      on<HomeItemDeleted>((event, emit) async {
+    on<HomeItemDeleted>((event, emit) async {
       try {
         final udpateList = await _repository.deleteItem(event.index);
+        emit(HomeLoaded(udpateList));
+      } on Exception catch (e) {
+        emit(HomeError(e));
+      }
+    });
+    on<HomeFiltersApplied>((event, emit) async {
+      try {
+        final udpateList = await _repository.applayFilters();
+        // TODO: надо пробросить примененные фильтры в главныйэкран 
         emit(HomeLoaded(udpateList));
       } on Exception catch (e) {
         emit(HomeError(e));

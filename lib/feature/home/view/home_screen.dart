@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:sound_level_meter/feature/home/bloc/home_bloc.dart';
+import 'package:sound_level_meter/feature/home/model/technique_list.dart';
 import 'package:sound_level_meter/feature/home/repository/home_repository.dart';
 import 'package:sound_level_meter/feature/ui/scaffold.dart';
 import 'package:sound_level_meter/router/router.dart';
@@ -307,7 +308,7 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
                                     brokenQuantity: item.brokenQuantity,
                                     onEdit: () {
                                       AutoRouter.of(context)
-                                          .push(SattingsRoute());
+                                          .push(EditRoute(item: item));
 
                                       print('Редагувати');
                                     },
@@ -334,5 +335,3 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
             }));
   }
 }
-
-

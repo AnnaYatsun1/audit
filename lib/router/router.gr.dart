@@ -11,6 +11,59 @@
 part of 'router.dart';
 
 /// generated route for
+/// [EditScreen]
+class EditRoute extends PageRouteInfo<EditRouteArgs> {
+  EditRoute({
+    Key? key,
+    required TechniqueList item,
+    List<PageRouteInfo>? children,
+  }) : super(
+         EditRoute.name,
+         args: EditRouteArgs(key: key, item: item),
+         initialChildren: children,
+       );
+
+  static const String name = 'EditRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      final args = data.argsAs<EditRouteArgs>();
+      return EditScreen(key: args.key, item: args.item);
+    },
+  );
+}
+
+class EditRouteArgs {
+  const EditRouteArgs({this.key, required this.item});
+
+  final Key? key;
+
+  final TechniqueList item;
+
+  @override
+  String toString() {
+    return 'EditRouteArgs{key: $key, item: $item}';
+  }
+}
+
+/// generated route for
+/// [HistoryScreen]
+class HistoryRoute extends PageRouteInfo<void> {
+  const HistoryRoute({List<PageRouteInfo>? children})
+    : super(HistoryRoute.name, initialChildren: children);
+
+  static const String name = 'HistoryRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const HistoryScreen();
+    },
+  );
+}
+
+/// generated route for
 /// [HomeTabScreen]
 class HomeTabRoute extends PageRouteInfo<void> {
   const HomeTabRoute({List<PageRouteInfo>? children})
@@ -38,6 +91,22 @@ class InfoRoute extends PageRouteInfo<void> {
     name,
     builder: (data) {
       return const InfoScreen();
+    },
+  );
+}
+
+/// generated route for
+/// [LocationScreen]
+class LocationRoute extends PageRouteInfo<void> {
+  const LocationRoute({List<PageRouteInfo>? children})
+    : super(LocationRoute.name, initialChildren: children);
+
+  static const String name = 'LocationRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const LocationScreen();
     },
   );
 }
@@ -91,22 +160,6 @@ class QRScannerRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [SattingsScreen]
-class SattingsRoute extends PageRouteInfo<void> {
-  const SattingsRoute({List<PageRouteInfo>? children})
-    : super(SattingsRoute.name, initialChildren: children);
-
-  static const String name = 'SattingsRoute';
-
-  static PageInfo page = PageInfo(
-    name,
-    builder: (data) {
-      return const SattingsScreen();
-    },
-  );
-}
-
-/// generated route for
 /// [SavesScreen]
 class SavesRoute extends PageRouteInfo<void> {
   const SavesRoute({List<PageRouteInfo>? children})
@@ -150,6 +203,22 @@ class SignInRoute extends PageRouteInfo<void> {
     name,
     builder: (data) {
       return const SignInScreen();
+    },
+  );
+}
+
+/// generated route for
+/// [SimilarProductScreen]
+class SimilarProductRoute extends PageRouteInfo<void> {
+  const SimilarProductRoute({List<PageRouteInfo>? children})
+    : super(SimilarProductRoute.name, initialChildren: children);
+
+  static const String name = 'SimilarProductRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const SimilarProductScreen();
     },
   );
 }

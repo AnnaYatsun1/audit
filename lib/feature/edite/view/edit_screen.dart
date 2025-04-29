@@ -2,7 +2,11 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
 import 'package:sound_level_meter/feature/bottom_bar/bottom_bar.dart';
+import 'package:sound_level_meter/feature/home/model/technique_list.dart';
+import 'package:sound_level_meter/feature/edite/bloc/edite/bloc/edit_bloc.dart';
+import 'package:sound_level_meter/feature/edite/bloc/edite/repository/edite_repository.dart';
 import 'package:sound_level_meter/feature/ui/scaffold.dart';
 import 'package:sound_level_meter/feature/ui/theme/theme.dart';
 import 'package:sound_level_meter/router/router.dart';
@@ -13,18 +17,55 @@ import 'package:sound_level_meter/generated/l10n.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 @RoutePage()
-class SattingsScreen extends StatefulWidget {
-  const SattingsScreen({super.key});
+class EditScreen extends StatefulWidget {
+  final TechniqueList item;
+  const EditScreen({super.key, required this.item});
 
   @override
-  State<SattingsScreen> createState() => _SattingsScreenState();
+  State<EditScreen> createState() => _EditScreenState();
 }
 
-class _SattingsScreenState extends State<SattingsScreen> {
+class _EditScreenState extends State<EditScreen> {
   final ImagePicker _picker = ImagePicker();
   XFile? _imageFile;
   String? selectedBrand;
   final Map<int, String?> selectedBrands = {};
+  late TextEditingController nameController;
+  late TextEditingController totalCount;
+  late TextEditingController workingController;
+  late TextEditingController brokenController;
+  late TextEditingController descriptionController;
+
+  final _formKey = GlobalKey<FormState>();
+  final EditBloc _editBloc = EditBloc(EditeRepository());
+
+  @override
+  void dispose() {
+    nameController.dispose();
+    totalCount.dispose();
+    workingController.dispose();
+    brokenController.dispose();
+    descriptionController.dispose();
+    super.dispose();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    // Здесь инициализируем контроллер, подставляя переданное значение:
+    totalCount =
+        TextEditingController(text: widget.item.totalQuantity.toString());
+
+    workingController =
+        TextEditingController(text: widget.item.workingQuantity.toString());
+    descriptionController =
+        TextEditingController(text: widget.item.brokenQuantity.toString());
+          brokenController =
+        TextEditingController(text: widget.item.brokenQuantity.toString());
+    nameController = TextEditingController(
+      text: widget.item.name.isNotEmpty ? widget.item.name : '',
+    );
+  }
 
   Future<void> pickPhotoFromGalery() async {
     final picker = await _picker.pickImage(source: ImageSource.gallery);
@@ -115,39 +156,33 @@ class _SattingsScreenState extends State<SattingsScreen> {
               ),
               Padding(
                 padding: EdgeInsets.only(top: 10, bottom: 10),
-                child: TextField(
-                  decoration: 
-                  InputDecoration(  
-              
+                child: TextFormField(
+                  style: TextStyle(color: Colors.white),
+                  controller: nameController,
+                  decoration: InputDecoration(
+                    // Плейсхолдер если поле пустое
                     labelText: 'Product Name',
-                      labelStyle: themeDark.textTheme.labelSmall),
+
+                    labelStyle: themeDark.textTheme.labelSmall,
+                  ),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Пожалуйста, введите имя';
+                    }
+                    return null;
+                  },
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.only(top: 10.0, bottom: 10),
-                child: TextField(
-                    decoration: InputDecoration(
-                        labelText: 'Clobal Rank',
-                        labelStyle: themeDark.textTheme.labelSmall),
-                    keyboardType: TextInputType.number),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top: 10.0, bottom: 10),
-                child: TextField(
-                    decoration: InputDecoration(
-                        labelText: 'Clobal Rank',
-                        labelStyle: themeDark.textTheme.labelSmall),
-                    keyboardType: TextInputType.number),
-              ),
-              Padding(
+                        Padding(
                 padding: const EdgeInsets.only(top: 10.0),
                 child: Row(
                   children: [
                     Expanded(
                       child: TextField(
+
                           decoration: InputDecoration(
                               labelText: 'Serial number ',
-                              labelStyle: themeDark.textTheme.labelSmall),
+                              labelStyle: TextStyle(color: Colors.white)),
                           keyboardType: TextInputType.number),
                     ),
                     SizedBox(
@@ -164,9 +199,12 @@ class _SattingsScreenState extends State<SattingsScreen> {
                   ],
                 ),
               ),
+
               Padding(
                 padding: const EdgeInsets.only(top: 10.0, bottom: 10),
                 child: TextField(
+                  style: TextStyle(color: Colors.white),
+                  controller: descriptionController,
                   decoration: InputDecoration(
                       labelText: 'Description',
                       labelStyle: themeDark.textTheme.labelSmall),
@@ -176,21 +214,18 @@ class _SattingsScreenState extends State<SattingsScreen> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(top: 10.0, bottom: 10.0),
+                padding: const EdgeInsets.only(top: 10.0, bottom: 10),
                 child: TextFormField(
-                    inputFormatters: [
-                      FilteringTextInputFormatter.allow(RegExp(r'^\d*\.?\d*')),
-                    ],
-                    keyboardType: TextInputType.number,
-                    style: themeDark.textTheme.labelSmall,
-                    decoration: InputDecoration(
-                        labelText: 'Робочих',
+                    style: TextStyle(color: Colors.white),
+                    controller: workingController,
+                     decoration: InputDecoration(
+                        labelText: 'Working Quantity',
                         labelStyle: themeDark.textTheme.labelSmall),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
-                        return 'Inut number';
+                        return S.of(context).plsEnterPassword;;
                       }
-                      final number = double.tryParse(value);
+                      final number = int.parse(value);
                       if (number == null) {
                         return 'Некорректное число';
                       }
@@ -200,24 +235,29 @@ class _SattingsScreenState extends State<SattingsScreen> {
                       }
 
                       return null;
-                    }),
+                    }
+                    ),
               ),
+  
               Padding(
                 padding: const EdgeInsets.only(top: 10.0, bottom: 10.0),
                 child: TextFormField(
-                    keyboardType: TextInputType.number,
+                  
+                    style: TextStyle(color: Colors.white),
+                    controller: brokenController,
                     inputFormatters: [
                       FilteringTextInputFormatter.allow(RegExp(r'^\d*\.?\d*')),
                     ],
-                    style: themeDark.textTheme.labelSmall,
+                    keyboardType: TextInputType.number,
+                    // style: themeDark.textTheme.labelSmall,
                     decoration: InputDecoration(
-                        labelText: 'Не робочих',
+                        labelText: 'Broken Quantity',
                         labelStyle: themeDark.textTheme.labelSmall),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Inut number';
                       }
-                      final number = double.tryParse(value);
+                      final number = int.parse(value);
                       if (number == null) {
                         return 'Некорректное число';
                       }
@@ -227,7 +267,8 @@ class _SattingsScreenState extends State<SattingsScreen> {
                       }
 
                       return null;
-                    }),
+                    }
+                    ),
               ),
               // тут бедем брать с запроса
 
@@ -238,7 +279,7 @@ class _SattingsScreenState extends State<SattingsScreen> {
                     readOnly: true,
                     decoration: InputDecoration(
                         labelText:
-                            'Количество в использовании ${value > 0 ? value : "нет данных"}',
+                            'Количество в использовании ${int.parse(totalCount.text) > 0 ? int.parse(totalCount.text) : "нет данных"}',
                         labelStyle: themeDark.textTheme.labelSmall),
                     keyboardType: TextInputType.text,
                   ),
@@ -260,14 +301,21 @@ class _SattingsScreenState extends State<SattingsScreen> {
                           children: [
                             // Кнопка "История объекта"
                             TextButton.icon(
-                              onPressed: () {
+                              onPressed: () async {
+                                await AutoRouter.of(context)
+                                          .push(HistoryRoute());
+                                
                                 // Navigator.push(
                                 //   context,
                                 //   MaterialPageRoute(builder: (context) => HistoryScreen()),
                                 // );
                               },
-                              icon: Icon(Icons.history, color: Colors.white,),
-                              label: Text('История объекта', style: TextStyle(color: Colors.white)),
+                              icon: Icon(
+                                Icons.history,
+                                color: Colors.white,
+                              ),
+                              label: Text('История объекта',
+                                  style: TextStyle(color: Colors.white)),
                               style: TextButton.styleFrom(
                                 // padding: EdgeInsets.symmetric(
                                 //     vertical: 12, horizontal: 16),
@@ -279,14 +327,21 @@ class _SattingsScreenState extends State<SattingsScreen> {
 
                             // Кнопка "Схожие товары"
                             TextButton.icon(
-                              onPressed: () {
+                              onPressed: () async {
+                                await AutoRouter.of(context)
+                                          .push<TechniqueList>(SimilarProductRoute());
+                                
                                 // Navigator.push(
                                 //   context,
                                 //   // MaterialPageRoute(builder: (context) => SimilarProductsScreen()),
                                 // );
                               },
-                              icon: Icon(Icons.shopping_bag, color: Colors.white,),
-                              label: Text('Схожие товары', style: TextStyle(color: Colors.white)),
+                              icon: Icon(
+                                Icons.shopping_bag,
+                                color: Colors.white,
+                              ),
+                              label: Text('Схожие товары',
+                                  style: TextStyle(color: Colors.white)),
                               style: TextButton.styleFrom(
                                 padding: EdgeInsets.symmetric(
                                     vertical: 12, horizontal: 16),
@@ -300,7 +355,7 @@ class _SattingsScreenState extends State<SattingsScreen> {
                   ),
                   Expanded(
                     child: Card(
-                      color:    const Color(0xFF1E1E1E),
+                      color: const Color(0xFF1E1E1E),
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(12)),
                       elevation: 10,
@@ -309,16 +364,20 @@ class _SattingsScreenState extends State<SattingsScreen> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            // Кнопка "История объекта"
+                            // Кнопка "Перевесті"
                             TextButton.icon(
-                              onPressed: () {
-                                // Navigator.push(
-                                //   context,
-                                //   MaterialPageRoute(builder: (context) => HistoryScreen()),
-                                // );
+                              onPressed: () async {
+                            await AutoRouter.of(context)
+                                          .push<TechniqueList>(HistoryRoute());
                               },
-                              icon: Icon(Icons.history, color: Colors.white,),
-                              label: Text('Перевести', style: TextStyle(color: Colors.white),),
+                              icon: Icon(
+                                Icons.history,
+                                color: Colors.white,
+                              ),
+                              label: Text(
+                                'Перевести',
+                                style: TextStyle(color: Colors.white),
+                              ),
                               style: TextButton.styleFrom(
                                 padding: EdgeInsets.symmetric(
                                     vertical: 12, horizontal: 16),
@@ -328,7 +387,7 @@ class _SattingsScreenState extends State<SattingsScreen> {
 
                             SizedBox(height: 8),
 
-                            // Кнопка "Схожие товары"
+                            // Кнопка "Видать"
                             TextButton.icon(
                               onPressed: () {
                                 // Navigator.push(
@@ -336,8 +395,14 @@ class _SattingsScreenState extends State<SattingsScreen> {
                                 //   // MaterialPageRoute(builder: (context) => SimilarProductsScreen()),
                                 // );
                               },
-                              icon: Icon(Icons.shopping_bag, color: Colors.white,),
-                              label: Text('Выдать', style: TextStyle(color: Colors.white),),
+                              icon: Icon(
+                                Icons.shopping_bag,
+                                color: Colors.white,
+                              ),
+                              label: Text(
+                                'Выдать',
+                                style: TextStyle(color: Colors.white),
+                              ),
                               style: TextButton.styleFrom(
                                 padding: EdgeInsets.symmetric(
                                     vertical: 12, horizontal: 16),
@@ -345,14 +410,20 @@ class _SattingsScreenState extends State<SattingsScreen> {
                               ),
                             ),
                             TextButton.icon(
-                              onPressed: () {
+                              onPressed: () async {
+                                 await AutoRouter.of(context)
+                                          .push<TechniqueList>(LocationRoute());
                                 // Navigator.push(
                                 //   context,
                                 //   MaterialPageRoute(builder: (context) => HistoryScreen()),
                                 // );
                               },
-                              icon: Icon(Icons.history, color: Colors.white,),
-                              label: Text('ЛОкации', style: TextStyle(color: Colors.white)),
+                              icon: Icon(
+                                Icons.history,
+                                color: Colors.white,
+                              ),
+                              label: Text('Локации',
+                                  style: TextStyle(color: Colors.white)),
                               style: TextButton.styleFrom(
                                 padding: EdgeInsets.symmetric(
                                     vertical: 12, horizontal: 16),
@@ -370,7 +441,6 @@ class _SattingsScreenState extends State<SattingsScreen> {
               // child:
               Container(
                 child: ListView.builder(
-                
                     shrinkWrap: true,
                     itemCount: 1,
                     itemBuilder: (context, index) {
@@ -388,22 +458,15 @@ class _SattingsScreenState extends State<SattingsScreen> {
               // ),
 
               Container(
-                color:  const Color(0xFF1E1E1E),
+                color: const Color(0xFF1E1E1E),
                 child: ListView.builder(
-                    
                     itemCount: 1,
                     shrinkWrap: true,
                     itemBuilder: (context, index) {
                       return AdaptiveBrandSelector(
-                        
                           selectedBrand: selectedBrands[1],
-                          brands: [
-                            'Comp',
-                            'Mouse',
-                            'Keyboard',
-                            'Micropphone'
-                          ],
-                          textOfBrand: 'Brend',
+                          brands: ['Comp', 'Mouse', 'Keyboard', 'Micropphone'],
+                          textOfBrand: 'Type',
                           onBrandSelected: (brand) {
                             setState(() {
                               selectedBrands[1] = brand;
@@ -416,16 +479,32 @@ class _SattingsScreenState extends State<SattingsScreen> {
                 child: SizedBox(
                   width: double.infinity,
                   child: CupertinoButton(
-                    color:  const Color(0xFF1E1E1E),
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 16.0), // высота кнопки
-                    child: Text(
-                      'Готово',
-                      style:
-                          TextStyle(color: Colors.blue), // так как фон белый
-                    ),
-                    onPressed: () => Navigator.of(context).pop(),
-                  ),
+                      color: const Color(0xFF1E1E1E),
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 16.0), // высота кнопки
+                      child: Text(
+                        'Готово',
+                        style:
+                            TextStyle(color: Colors.blue), // так как фон белый
+                      ),
+                      onPressed: () {
+                        // if (_formKey.currentState!.validate()) {
+                          final updatedItem = TechniqueList(
+                            name: nameController.text,
+                            brand: selectedBrand ?? '',
+                            totalQuantity: 
+                            int.parse(totalCount.text),
+                            workingQuantity: 
+                            int.parse(workingController.text),
+                            brokenQuantity: 
+                            int.parse(brokenController.text),
+          
+                          );
+                          _editBloc.add(EditApplay(updateModel: updatedItem));
+                        }
+                      // }
+                      //  => Navigator.of(context).pop(),
+                      ),
                 ),
               )
             ],
@@ -457,7 +536,6 @@ class AdaptiveBrandSelector extends StatelessWidget {
         height: 300,
         color: CupertinoColors.systemBackground.resolveFrom(context),
         child: Column(
-
           children: [
             SizedBox(
               height: 200,
@@ -466,7 +544,11 @@ class AdaptiveBrandSelector extends StatelessWidget {
                 onSelectedItemChanged: (index) {
                   onBrandSelected(brands[index]);
                 },
-                children: brands.map((b) => Text(b,)).toList(),
+                children: brands
+                    .map((b) => Text(
+                          b,
+                        ))
+                    .toList(),
               ),
             ),
             CupertinoButton(
@@ -519,7 +601,9 @@ class AdaptiveBrandSelector extends StatelessWidget {
 
 class CustomCuertinoButtom extends StatelessWidget {
   //  bool? isSelected;
-  const CustomCuertinoButtom({super.key,});
+  const CustomCuertinoButtom({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -539,8 +623,4 @@ class CustomCuertinoButtom extends StatelessWidget {
       ),
     );
   }
-
-
 }
-
-
