@@ -8,10 +8,10 @@ class HomeInitial extends HomeState {
   const HomeInitial();
 }
 
-class HomeLoading extends HomeState {}
+// class HomeLoading extends HomeState {}
 
 class HomeLoaded extends HomeState {
-  final List<TechniqueList> techniqueList;
+  final List<InventoryItemView> techniqueList;
 
   HomeLoaded(this.techniqueList);
 }

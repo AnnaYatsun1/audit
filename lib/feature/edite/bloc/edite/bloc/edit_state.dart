@@ -8,11 +8,8 @@ class EditInitial extends EditState {
   const EditInitial();
 }
 
-class EditLoading extends EditState {
-
-} 
 class EditLoaded extends EditState {
-  final TechniqueList updateModel;
+  final InventoryItemEdit updateModel;
   const EditLoaded(this.updateModel);
 }
 

@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:sound_level_meter/feature/bottom_bar/bottom_bar.dart';
+import 'package:sound_level_meter/feature/home/model/inventory_item_view.dart';
 import 'package:sound_level_meter/feature/ui/theme/theme.dart';
 import 'package:sound_level_meter/router/router.dart';
 
@@ -201,7 +202,7 @@ class _InfoScreenState extends State<InfoScreen> {
 //   }
 // }
 
-class InventoryListTile extends StatelessWidget {
+class InventoryCard extends StatefulWidget {
   final String name;
   final String brand;
   final int totalQuantity;
@@ -209,9 +210,10 @@ class InventoryListTile extends StatelessWidget {
   final int brokenQuantity;
   final VoidCallback onEdit;
   final VoidCallback onDelete;
+  final VoidCallback onDetail;
   final VoidCallback onGenerateBarcode;
 
-  const InventoryListTile({
+  const InventoryCard({
     super.key,
     required this.name,
     required this.brand,
@@ -220,11 +222,28 @@ class InventoryListTile extends StatelessWidget {
     required this.brokenQuantity,
     required this.onEdit,
     required this.onDelete,
+    required this.onDetail,
     required this.onGenerateBarcode,
   });
 
   @override
+  State<InventoryCard> createState() => _InventoryCardState();
+}
+
+class _InventoryCardState extends State<InventoryCard> {
+    void onDeteilItem(InventoryItemView item) async {
+      final updatedItem = await AutoRouter.of(context).push<InventoryItemView>(
+         DetailRoute(item: item),
+      );
+
+    // if (updatedItem != null) {
+    //   _homeBloc.add(HomeItemUdate(updatedItem));
+    // }
+   }
+
+  @override
   Widget build(BuildContext context) {
+    /// Карточка товара
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
       child: Card(
@@ -241,7 +260,6 @@ class InventoryListTile extends StatelessWidget {
               /// Верхний блок с названием и брендом
               Row(
                 children: [
-  
                   CircleAvatar(
                     radius: 24,
                     backgroundColor: Colors.white,
@@ -259,7 +277,7 @@ class InventoryListTile extends StatelessWidget {
                       children: [
                         /// Имя объекта
                         Text(
-                          name,
+                          widget.name,
                           style: const TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
@@ -269,7 +287,7 @@ class InventoryListTile extends StatelessWidget {
 
                         /// Бренд
                         Text(
-                          'Бренд: $brand',
+                          'Бренд: ${widget.brand}',
                           style: TextStyle(
                             color: Colors.grey[400],
                             fontSize: 12,
@@ -278,17 +296,23 @@ class InventoryListTile extends StatelessWidget {
                       ],
                     ),
                   ),
+                  IconButton(
+                      onPressed: 
+                        widget.onDetail,
+                        // AutoRouter.of(context).push(DetailRoute(item: ));
+                        // print('Открываем экран ');
+                      // },
+                      icon: Icon(Icons.edit)),
                 ],
               ),
               const SizedBox(height: 12),
 
-  
               Divider(color: Colors.grey[700]),
 
               /// Данные о количестве
-              _buildRowInfo('Загальна кількість', '$totalQuantity'),
-              _buildRowInfo('Кількість робочих', '$workingQuantity'),
-              _buildRowInfo('Кількість зламаних', '$brokenQuantity'),
+              _buildRowInfo('Загальна кількість', '${widget.totalQuantity}'),
+              _buildRowInfo('Кількість робочих', '${widget.workingQuantity}'),
+              _buildRowInfo('Кількість зламаних', '${widget.brokenQuantity}'),
 
               const SizedBox(height: 12),
 
@@ -300,7 +324,7 @@ class InventoryListTile extends StatelessWidget {
                   _buildActionButton(
                     icon: Icons.qr_code,
                     label: 'Баркод',
-                    onTap: onGenerateBarcode,
+                    onTap: widget.onGenerateBarcode,
                     color: Colors.green,
                   ),
 
@@ -308,7 +332,7 @@ class InventoryListTile extends StatelessWidget {
                   _buildActionButton(
                     icon: Icons.edit,
                     label: 'Редагувати',
-                    onTap: onEdit,
+                    onTap: widget.onEdit,
                     color: Colors.blue,
                   ),
 
@@ -316,7 +340,7 @@ class InventoryListTile extends StatelessWidget {
                   _buildActionButton(
                     icon: Icons.delete,
                     label: 'Видалити',
-                    onTap: onDelete,
+                    onTap: widget.onDelete,
                     color: Colors.red,
                   ),
                 ],

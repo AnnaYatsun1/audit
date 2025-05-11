@@ -1,5 +1,8 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sound_level_meter/feature/similar_product/bloc/similar/bloc/similar_bloc.dart';
+import 'package:sound_level_meter/feature/similar_product/bloc/similar/repository/similar_repository.dart';
 import 'package:sound_level_meter/feature/ui/scaffold.dart';
 
 @RoutePage()
@@ -11,26 +14,50 @@ class SimilarProductScreen extends StatefulWidget {
 }
 
 class _SimilarProductScreenState extends State<SimilarProductScreen> {
+  final SimilarBloc _similarBloc = SimilarBloc(SimilarRepository());
   // Список для демонстрации схожих товаров
-  final List<Map<String, String>> similarProducts = [
-    {"title": "Product A", "brand": "Brand X"},
-    {"title": "Product B", "brand": "Brand Y"},
-    {"title": "Product C", "brand": "Brand Z"},
-  ];
 
+
+    @override
+    void initState() {
+       super.initState();
+
+  
+      _similarBloc.add(SimilarStarted(brand: 'Apple'));
+}
   @override
   Widget build(BuildContext context) {
     return CustomScaffold(
       appBarIsVisible: true,
       child: Padding(
         padding: const EdgeInsets.all(12.0),
-        child: ListView.builder(
-          itemCount: similarProducts.length,
-          itemBuilder: (context, index) {
-            final product = similarProducts[index];
-            return ProductCard(product: product);
+        child:    Padding(
+          padding: const EdgeInsets.all(12.0),
+          child: BlocBuilder<SimilarBloc, SimilarState>(
+              bloc: _similarBloc,
+              builder: (context, state) {
+                if (state is SimilarInitial) {
+                  return const Center(child: CircularProgressIndicator());
+                } else if (state is SimilarLoaded) {
+                  return  ListView.builder(
+                 itemCount: state.similarInventoryItem.length,
+              itemBuilder: (context, index) {
+              final item = state.similarInventoryItem[index];
+                return ProductCard(product: {
+                  "title": item.name,
+                  "brand": item.brand
+                });
           },
-        ),
+        );
+                } else if (state is SimilarError) {
+                  return Text(
+                      'Error: ${state.toString() ?? "Smth happend pls try again"}');
+                }
+                return SizedBox(
+                  height: 16,
+                );
+              })),
+  
       ),
     );
   }
@@ -51,9 +78,10 @@ class ProductCard extends StatefulWidget {
 class _ProductCardState extends State<ProductCard> {
   final String typeName = "";
   final String subypeName = "";
+  
   @override
   Widget build(BuildContext context) {
-    return Card(
+    return   Card(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(12),
       ),

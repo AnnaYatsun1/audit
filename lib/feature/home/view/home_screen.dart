@@ -2,8 +2,9 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
+import 'package:sound_level_meter/feature/edite/model/inventory_item_edite.dart';
 import 'package:sound_level_meter/feature/home/bloc/home_bloc.dart';
-import 'package:sound_level_meter/feature/home/model/technique_list.dart';
+import 'package:sound_level_meter/feature/home/model/inventory_item_view.dart';
 import 'package:sound_level_meter/feature/home/repository/home_repository.dart';
 import 'package:sound_level_meter/feature/ui/scaffold.dart';
 import 'package:sound_level_meter/router/router.dart';
@@ -40,6 +41,28 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
     setState(() {
       isHiddenPassword = !isHiddenPassword;
     });
+  }
+
+  void onEditItem(InventoryItemView item) async {
+    final updatedItem = await AutoRouter.of(context).push<InventoryItemView>(
+      EditRoute(item: item),
+    );
+
+    if (updatedItem != null) {
+      // Отправляем событие для обновления данных в Bloc
+      _homeBloc.add(HomeItemUdate(updatedItem));
+    }
+  }
+
+  void onDetailItem(InventoryItemView item) async {
+    final updatedItem = await AutoRouter.of(context).push<InventoryItemView>(
+      DetailRoute(item: item),
+    );
+
+    if (updatedItem != null) {
+      // Отправляем событие для обновления данных в Bloc
+      _homeBloc.add(HomeItemDetail(updatedItem));
+    }
   }
 
   @override
@@ -300,16 +323,17 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
                                 return Padding(
                                   padding:
                                       const EdgeInsets.symmetric(vertical: 8.0),
-                                  child: InventoryListTile(
+                                  child: InventoryCard(
                                     name: item.name,
                                     brand: item.brand,
-                                    totalQuantity: item.totalQuantity,
-                                    workingQuantity: item.workingQuantity,
-                                    brokenQuantity: item.brokenQuantity,
+                                    totalQuantity: item.total,
+                                    workingQuantity: item.working,
+                                    brokenQuantity: item.broken,
+                                    onDetail: () {
+                                      onDetailItem(item);
+                                    },
                                     onEdit: () {
-                                      AutoRouter.of(context)
-                                          .push(EditRoute(item: item));
-
+                                      onEditItem(item);
                                       print('Редагувати');
                                     },
                                     onDelete: () {

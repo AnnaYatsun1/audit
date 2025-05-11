@@ -11,11 +11,48 @@
 part of 'router.dart';
 
 /// generated route for
+/// [DetailScreen]
+class DetailRoute extends PageRouteInfo<DetailRouteArgs> {
+  DetailRoute({
+    Key? key,
+    required InventoryItemView item,
+    List<PageRouteInfo>? children,
+  }) : super(
+         DetailRoute.name,
+         args: DetailRouteArgs(key: key, item: item),
+         initialChildren: children,
+       );
+
+  static const String name = 'DetailRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      final args = data.argsAs<DetailRouteArgs>();
+      return DetailScreen(key: args.key, item: args.item);
+    },
+  );
+}
+
+class DetailRouteArgs {
+  const DetailRouteArgs({this.key, required this.item});
+
+  final Key? key;
+
+  final InventoryItemView item;
+
+  @override
+  String toString() {
+    return 'DetailRouteArgs{key: $key, item: $item}';
+  }
+}
+
+/// generated route for
 /// [EditScreen]
 class EditRoute extends PageRouteInfo<EditRouteArgs> {
   EditRoute({
     Key? key,
-    required TechniqueList item,
+    required InventoryItemView item,
     List<PageRouteInfo>? children,
   }) : super(
          EditRoute.name,
@@ -39,7 +76,7 @@ class EditRouteArgs {
 
   final Key? key;
 
-  final TechniqueList item;
+  final InventoryItemView item;
 
   @override
   String toString() {
@@ -97,18 +134,39 @@ class InfoRoute extends PageRouteInfo<void> {
 
 /// generated route for
 /// [LocationScreen]
-class LocationRoute extends PageRouteInfo<void> {
-  const LocationRoute({List<PageRouteInfo>? children})
-    : super(LocationRoute.name, initialChildren: children);
+class LocationRoute extends PageRouteInfo<LocationRouteArgs> {
+  LocationRoute({
+    Key? key,
+    required InventoryType productType,
+    List<PageRouteInfo>? children,
+  }) : super(
+         LocationRoute.name,
+         args: LocationRouteArgs(key: key, productType: productType),
+         initialChildren: children,
+       );
 
   static const String name = 'LocationRoute';
 
   static PageInfo page = PageInfo(
     name,
     builder: (data) {
-      return const LocationScreen();
+      final args = data.argsAs<LocationRouteArgs>();
+      return LocationScreen(key: args.key, productType: args.productType);
     },
   );
+}
+
+class LocationRouteArgs {
+  const LocationRouteArgs({this.key, required this.productType});
+
+  final Key? key;
+
+  final InventoryType productType;
+
+  @override
+  String toString() {
+    return 'LocationRouteArgs{key: $key, productType: $productType}';
+  }
 }
 
 /// generated route for

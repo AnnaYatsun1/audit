@@ -3,8 +3,10 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:sound_level_meter/feature/bottom_bar/bottom_bar.dart';
 import 'package:sound_level_meter/feature/bottom_bar/home_tabBar.dart';
+import 'package:sound_level_meter/feature/detail/detail_screen.dart';
+import 'package:sound_level_meter/feature/edite/model/inventory_item_edite.dart';
 import 'package:sound_level_meter/feature/history/history_screen.dart';
-import 'package:sound_level_meter/feature/home/model/technique_list.dart';
+import 'package:sound_level_meter/feature/home/model/inventory_item_view.dart';
 import 'package:sound_level_meter/feature/location/location_screen.dart';
 import 'package:sound_level_meter/feature/micro/view/micro_screen.dart';
 import 'package:sound_level_meter/feature/similar_product/view/similar_product_screen.dart';
@@ -54,5 +56,6 @@ class AppRouter extends RootStackRouter {
           AutoRoute(page: LocationRoute.page, path: '/location'),
           AutoRoute(page: HistoryRoute.page, path: '/history'),
           AutoRoute(page: SimilarProductRoute.page, path: '/similar'),
+          AutoRoute(page: DetailRoute.page, path: '/detail'),
       ];
 }

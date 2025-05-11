@@ -16,6 +16,13 @@ class HomeFiltersApplied extends HomeEvent {
 }
 
 class HomeItemUdate extends HomeEvent {
-  TechniqueList _techniqueList;
-  HomeItemUdate(this._techniqueList);
+  InventoryItemView _inventoryItem;
+  HomeItemUdate(this._inventoryItem);
 }
+
+class HomeItemDetail extends HomeEvent {
+  InventoryItemView _inventoryItem;
+  HomeItemDetail(this._inventoryItem);
+}
+
+
