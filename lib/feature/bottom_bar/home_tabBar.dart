@@ -13,8 +13,8 @@ class HomeTabScreen extends StatelessWidget {
     return AutoTabsRouter(
       routes: const [
         MyHomeRoute(), // Главная страница
-        SavesRoute(),
-        TimerRoute(),
+        AllLocationRoute(),
+        NewTypeRoute(),
         MicroRoute(),
       ],
       builder: (context, child) {

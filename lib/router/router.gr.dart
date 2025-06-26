@@ -11,6 +11,38 @@
 part of 'router.dart';
 
 /// generated route for
+/// [AllLocationScreen]
+class AllLocationRoute extends PageRouteInfo<void> {
+  const AllLocationRoute({List<PageRouteInfo>? children})
+    : super(AllLocationRoute.name, initialChildren: children);
+
+  static const String name = 'AllLocationRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const AllLocationScreen();
+    },
+  );
+}
+
+/// generated route for
+/// [CreateProductScreen]
+class CreateProductRoute extends PageRouteInfo<void> {
+  const CreateProductRoute({List<PageRouteInfo>? children})
+    : super(CreateProductRoute.name, initialChildren: children);
+
+  static const String name = 'CreateProductRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const CreateProductScreen();
+    },
+  );
+}
+
+/// generated route for
 /// [DetailScreen]
 class DetailRoute extends PageRouteInfo<DetailRouteArgs> {
   DetailRoute({
@@ -82,6 +114,59 @@ class EditRouteArgs {
   String toString() {
     return 'EditRouteArgs{key: $key, item: $item}';
   }
+}
+
+/// generated route for
+/// [EditWarehouseScreen]
+class EditWarehouseRoute extends PageRouteInfo<EditWarehouseRouteArgs> {
+  EditWarehouseRoute({
+    Key? key,
+    required Warehouse model,
+    List<PageRouteInfo>? children,
+  }) : super(
+         EditWarehouseRoute.name,
+         args: EditWarehouseRouteArgs(key: key, model: model),
+         initialChildren: children,
+       );
+
+  static const String name = 'EditWarehouseRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      final args = data.argsAs<EditWarehouseRouteArgs>();
+      return EditWarehouseScreen(key: args.key, model: args.model);
+    },
+  );
+}
+
+class EditWarehouseRouteArgs {
+  const EditWarehouseRouteArgs({this.key, required this.model});
+
+  final Key? key;
+
+  final Warehouse model;
+
+  @override
+  String toString() {
+    return 'EditWarehouseRouteArgs{key: $key, model: $model}';
+  }
+}
+
+/// generated route for
+/// [FiltreScreen]
+class FiltreRoute extends PageRouteInfo<void> {
+  const FiltreRoute({List<PageRouteInfo>? children})
+    : super(FiltreRoute.name, initialChildren: children);
+
+  static const String name = 'FiltreRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const FiltreScreen();
+    },
+  );
 }
 
 /// generated route for
@@ -202,6 +287,22 @@ class MyHomeRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [NewTypeScreen]
+class NewTypeRoute extends PageRouteInfo<void> {
+  const NewTypeRoute({List<PageRouteInfo>? children})
+    : super(NewTypeRoute.name, initialChildren: children);
+
+  static const String name = 'NewTypeRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const NewTypeScreen();
+    },
+  );
+}
+
+/// generated route for
 /// [QRScannerScreen]
 class QRScannerRoute extends PageRouteInfo<void> {
   const QRScannerRoute({List<PageRouteInfo>? children})
@@ -213,22 +314,6 @@ class QRScannerRoute extends PageRouteInfo<void> {
     name,
     builder: (data) {
       return const QRScannerScreen();
-    },
-  );
-}
-
-/// generated route for
-/// [SavesScreen]
-class SavesRoute extends PageRouteInfo<void> {
-  const SavesRoute({List<PageRouteInfo>? children})
-    : super(SavesRoute.name, initialChildren: children);
-
-  static const String name = 'SavesRoute';
-
-  static PageInfo page = PageInfo(
-    name,
-    builder: (data) {
-      return const SavesScreen();
     },
   );
 }
@@ -277,22 +362,6 @@ class SimilarProductRoute extends PageRouteInfo<void> {
     name,
     builder: (data) {
       return const SimilarProductScreen();
-    },
-  );
-}
-
-/// generated route for
-/// [TimerScreen]
-class TimerRoute extends PageRouteInfo<void> {
-  const TimerRoute({List<PageRouteInfo>? children})
-    : super(TimerRoute.name, initialChildren: children);
-
-  static const String name = 'TimerRoute';
-
-  static PageInfo page = PageInfo(
-    name,
-    builder: (data) {
-      return const TimerScreen();
     },
   );
 }

@@ -15,10 +15,11 @@ class BottomBar extends StatefulWidget {
 class _BottomBarState extends State<BottomBar> {
   Color getButtonColor(int index) {
     return widget.tabsRouter.activeIndex == index
-        ? const Color(0xFF4D4D4D) // Активная вкладка
-        : const Color(0xFF4D4D4D);
+        ? Colors.black.withOpacity(0.9)// Активная вкладка
+        :Colors.black.withOpacity(0.9);
   }
 
+// Color(0xFFF1C40F),  Color(0xFFFFD700)
   Color getIconColor(int index) {
     return widget.tabsRouter.activeIndex == index
         ? Colors.red
@@ -28,7 +29,7 @@ class _BottomBarState extends State<BottomBar> {
 
   Color getIconColor2(int index) {
     return widget.tabsRouter.activeIndex == index
-        ? Colors.white
+        ?    Color(0xFFFFA600)
         : themeDark.canvasColor; 
   }
 
@@ -36,12 +37,12 @@ class _BottomBarState extends State<BottomBar> {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        border: Border(
-          top: BorderSide(
-          color:  themeDark.canvasColor,
-          width: 2,
-          )
-        ),
+        // border: Border(
+        //   top: BorderSide(
+        //   color:  themeDark.canvasColor,
+        //   width: 2,
+        //   )
+        // ),
       ),
       child: Row(
         children: [
@@ -73,16 +74,16 @@ class _BottomBarState extends State<BottomBar> {
                   decoration: BoxDecoration(
                     color: getButtonColor(index),
                     
-                    border: Border(
-                        bottom: BorderSide(
-                          color: getIconColor(index), 
-                          width: 3)),
+                    // border: Border(
+                    //     bottom: BorderSide(
+                    //       color: getIconColor(index), 
+                    //       width: 3)),
                 
                   ),
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 10.0),
+                    padding: const EdgeInsets.symmetric(vertical: 12.0),
                     child: Align(
-                      alignment: Alignment.bottomCenter,
+                      alignment: Alignment.topCenter,
                       child:  Image.asset(
                         assetPath, 
                         color: getIconColor2(index),),

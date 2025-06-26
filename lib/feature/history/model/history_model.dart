@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class User {
   final String id;
   final String name;
-  final String avatar;
+  final String? avatar;
   final TypeWorker typeWorker;
 
   User(this.id, this.name, this.avatar, this.typeWorker);
@@ -19,6 +19,9 @@ enum ItemStatus {
   fixed, 
   replaced, 
   working, 
+  test1,
+  test3,
+  test4,
   movingTo() }
 
 class HistoryModel {

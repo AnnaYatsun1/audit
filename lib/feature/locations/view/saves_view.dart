@@ -1,0 +1,1 @@
+export 'all_location_screen.dart';

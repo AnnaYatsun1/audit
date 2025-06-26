@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sound_level_meter/feature/history/bloc/history/bloc/history_bloc.dart';
 import 'package:sound_level_meter/feature/history/bloc/history/repository/history_repository.dart';
 import 'package:intl/intl.dart';
+import 'package:sound_level_meter/feature/home/filter/view/filtre_screen.dart';
 import 'package:sound_level_meter/feature/ui/scaffold.dart';
 
 @RoutePage()
@@ -30,9 +31,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
         bloc: _historyBloc,
         builder: (context, state) {
           if (state is HistoryInitial) {
-            return Center(
-              child: CircularProgressIndicator(),
-            );
+         return Center(child: CustomLoadingIndicator());
           } else if (state is HistoryLoaded) {
             return CustomScaffold(
               appBarIsVisible: true,

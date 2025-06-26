@@ -13,7 +13,9 @@ class EditeRepository {
 
     // запрос
     return InventoryItemEdit(
+       
       id: found.id,
+     
       name: found.name,
       brand: brandEnum,
       description: 'Mock description',
@@ -21,6 +23,7 @@ class EditeRepository {
       workingCount: found.working,
       brokenCount: found.broken,
       serialNumber: 'SN-${found.id}',
+      
     );
   }
 

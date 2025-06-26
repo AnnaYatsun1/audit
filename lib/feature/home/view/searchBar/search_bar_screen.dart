@@ -53,9 +53,9 @@ class _SearchScreenState extends State<SearchScreen> {
                     decoration: InputDecoration(
                       focusedBorder: OutlineInputBorder(
                         borderSide: BorderSide(
-                            color: const Color.fromARGB(255, 195, 185, 185),
+                            color:   Color(0xFFFFA600),
                             width: 2), // Синя рамка при фокусі
-                        borderRadius: BorderRadius.circular(12),
+                        borderRadius: BorderRadius.circular(16),
                       ),
                       hintText: 'Поиск...',
                       hintStyle: const TextStyle(color: Colors.grey),
@@ -64,7 +64,7 @@ class _SearchScreenState extends State<SearchScreen> {
                       suffixIcon: _searchController.text.isNotEmpty
                           ? IconButton(
                               icon:
-                                  const Icon(Icons.clear, color: Colors.white),
+                                  const Icon(Icons.clear, color: Color(0xFFFFD700)),
                               onPressed: () {
                                 _searchController.clear();
                                 setState(() {});
@@ -95,8 +95,8 @@ class _SearchScreenState extends State<SearchScreen> {
       body: _searchText.isEmpty
           ? const Center(
               child: Text(
-                'Введите запрос для поиска...',
-                style: TextStyle(color: Colors.white70, fontSize: 16),
+                'Найдите товар....',
+                style: TextStyle(color: Colors.white70, fontSize: 20),
               ),
             )
           : _buildSearchResults(),
@@ -105,7 +105,7 @@ class _SearchScreenState extends State<SearchScreen> {
 
   /// Функція для побудови результатів пошуку
   Widget _buildSearchResults() {
-    // Тимчасово хардкодимо результати
+    
     final List<String> results = ['iPhone 13', 'MacBook Pro', 'AirPods Pro'];
 
     // Фільтрація результатів

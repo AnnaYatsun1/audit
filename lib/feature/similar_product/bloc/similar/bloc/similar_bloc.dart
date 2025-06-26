@@ -1,4 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sound_level_meter/feature/home/model/inventory_item_view.dart';
 import 'package:sound_level_meter/feature/similar_product/bloc/similar/repository/similar_repository.dart';
 import 'package:sound_level_meter/feature/similar_product/model/similar_inventory_item.dart';
 

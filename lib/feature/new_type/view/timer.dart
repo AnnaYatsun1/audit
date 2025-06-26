@@ -1,0 +1,1 @@
+export 'new_type_screen.dart';

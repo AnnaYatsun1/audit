@@ -42,166 +42,6 @@ class _InfoScreenState extends State<InfoScreen> {
   }
 }
 
-// class InventoryListTile extends StatelessWidget {
-//   const InventoryListTile({super.key});
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return SizedBox(
-//       height: 200,
-//       child: Padding(
-//         padding: const EdgeInsets.only(left: 8.0, right: 8.0),
-//         child: Card(
-//           borderOnForeground: true,
-
-//             color: themeDark.primaryColor,
-//             child: Center(
-//               child: Column(
-//                 mainAxisAlignment: MainAxisAlignment.start,
-//                 children: [
-//                   Padding(
-//                     padding: const EdgeInsets.only(top: 8.0, left: 8, right: 8),
-//                     child: Column(
-//                         mainAxisAlignment: MainAxisAlignment.start,
-//                       children: [
-//                               Text(
-//                           'General',
-//                           style: themeDark.textTheme.labelSmall,
-//                           textAlign: TextAlign.right,
-//                         ),
-//                                 Text(
-//                           'General',
-//                           style: themeDark.textTheme.labelSmall,
-//                           textAlign: TextAlign.right,
-//                         ),
-//                     ],),
-//                     // child: Row(
-//                     //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//                     //   children: [
-//                     //     Text(
-//                     //       'Simple',
-//                     //       style: themeDark.textTheme.bodyMedium,
-//                     //       textAlign: TextAlign.right,
-
-//                     //     ),
-//                     //     Text(
-//                     //       'General',
-//                     //       style: themeDark.textTheme.labelSmall,
-//                     //       textAlign: TextAlign.right,
-//                     //     ),
-//                     //   ],
-//                     // ),
-//                   ),
-//                   Padding(
-//                     padding: const EdgeInsets.only(top: 8.0, left: 8, right: 8),
-//                     child: Row(
-//                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//                         verticalDirection: VerticalDirection.up,
-//                         children: [
-//                           Row(children: [
-//                               Text(
-//                             'Item1',
-//                             style: themeDark.textTheme.bodyMedium,
-//                             // TextStyle(color: Colors.white, fontSize: 18),
-//                             textAlign: TextAlign.right,
-//                            ),
-
-//                           ],)
-
-//                           // Text(
-//                           //   'qty-9',
-//                           //   style: themeDark.textTheme.labelSmall,
-//                           //   textAlign: TextAlign.right,
-//                           // ),
-//                         ]),
-//                   ),
-//                   Padding(
-//                     padding: const EdgeInsets.only(top: 8.0, right: 8),
-//                     child: Row(
-//                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//                       children: [
-//                         Row(
-//                           children: [
-//                                 IconButton(
-//                                   onPressed: () {
-//                                       print('some action1');
-//                                    },
-//                                   icon: Icon(Icons.barcode_reader),
-//                                   color: Colors.black,
-//                               ),
-//                               IconButton(
-//                                   onPressed: () {
-//                                       print('some action1');
-//                                    },
-//                                   icon: Icon(Icons.edit),
-//                                   color: Colors.blue,
-//                               ),
-
-//                               IconButton(
-//                                   onPressed: () {
-//                                       print('some action1');
-//                                    },
-//                                   icon: Icon(Icons.delete),
-//                                   color: Colors.red,
-//                               ),
-//                           ],
-//                         ),
-//                         Row(children: [
-//                           Text(
-//                             'cst: 100',
-//                             style: themeDark.textTheme.labelSmall,
-//                             textAlign: TextAlign.right,),
-//                           Text(
-//                             'prs: 100',
-//                             style: themeDark.textTheme.labelSmall,
-//                             textAlign: TextAlign.right,)
-//                           ],)
-//                       ],
-//                     ),
-//                   ),
-//                   Padding(padding: EdgeInsets.all(10), child:
-//                   Container(
-
-//                     decoration: BoxDecoration(
-//                       color: Colors.black,
-//                       borderRadius: BorderRadius.all(Radius.circular(12)),
-//                     ),
-//                     child: Row(
-//                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-//                           children: [
-//                                 IconButton(
-//                                   onPressed: () {
-//                                       print('some action1');
-//                                    },
-//                                   icon: Icon(Icons.barcode_reader),
-//                                   color: Colors.white,
-//                               ),
-//                               IconButton(
-//                                   onPressed: () {
-//                                       print('some action1');
-//                                    },
-//                                   icon: Icon(Icons.edit),
-//                                   color: Colors.blue,
-//                               ),
-
-//                               IconButton(
-//                                   onPressed: () {
-//                                       print('some action1');
-//                                    },
-//                                   icon: Icon(Icons.delete),
-//                                   color: Colors.red,
-//                               ),
-//                           ],
-//                         ),)
-//                   ),
-//                 ],
-//               ),
-//             )),
-//       ),
-//     );
-//   }
-// }
-
 class InventoryCard extends StatefulWidget {
   final String name;
   final String brand;
@@ -231,15 +71,15 @@ class InventoryCard extends StatefulWidget {
 }
 
 class _InventoryCardState extends State<InventoryCard> {
-    void onDeteilItem(InventoryItemView item) async {
-      final updatedItem = await AutoRouter.of(context).push<InventoryItemView>(
-         DetailRoute(item: item),
-      );
+  void onDeteilItem(InventoryItemView item) async {
+    final updatedItem = await AutoRouter.of(context).push<InventoryItemView>(
+      DetailRoute(item: item),
+    );
 
     // if (updatedItem != null) {
     //   _homeBloc.add(HomeItemUdate(updatedItem));
     // }
-   }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -250,8 +90,10 @@ class _InventoryCardState extends State<InventoryCard> {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(12),
         ),
-        elevation: 4,
-        color: const Color(0xFF1E1E1E), // Темный фон для карточки
+        elevation: 10,
+        color: Color(0xFF2C2C2C),
+
+        // Темный фон для карточки
         child: Padding(
           padding: const EdgeInsets.all(12.0),
           child: Column(
@@ -297,12 +139,11 @@ class _InventoryCardState extends State<InventoryCard> {
                     ),
                   ),
                   IconButton(
-                      onPressed: 
-                        widget.onDetail,
-                        // AutoRouter.of(context).push(DetailRoute(item: ));
-                        // print('Открываем экран ');
+                      onPressed: widget.onDetail,
+                      // AutoRouter.of(context).push(DetailRoute(item: ));
+                      // print('Открываем экран ');
                       // },
-                      icon: Icon(Icons.edit)),
+                      icon: Icon(Icons.visibility, color:  Color(0xFFFFD700).withOpacity(0.5),)),
                 ],
               ),
               const SizedBox(height: 12),
@@ -325,7 +166,7 @@ class _InventoryCardState extends State<InventoryCard> {
                     icon: Icons.qr_code,
                     label: 'Баркод',
                     onTap: widget.onGenerateBarcode,
-                    color: Colors.green,
+                    color: const Color.fromARGB(255, 78, 240, 83).withOpacity(0.5),
                   ),
 
                   /// Кнопка редактирования
@@ -333,7 +174,7 @@ class _InventoryCardState extends State<InventoryCard> {
                     icon: Icons.edit,
                     label: 'Редагувати',
                     onTap: widget.onEdit,
-                    color: Colors.blue,
+                    color: const Color.fromARGB(255, 99, 175, 238),
                   ),
 
                   /// Кнопка удаления
@@ -341,7 +182,7 @@ class _InventoryCardState extends State<InventoryCard> {
                     icon: Icons.delete,
                     label: 'Видалити',
                     onTap: widget.onDelete,
-                    color: Colors.red,
+                    color: const Color.fromARGB(255, 232, 84, 73),
                   ),
                 ],
               ),
@@ -390,7 +231,7 @@ class _InventoryCardState extends State<InventoryCard> {
       onTap: onTap,
       borderRadius: BorderRadius.circular(12),
       child: Container(
-        width: 100,
+        width: MediaQuery.of(context).size.width * 0.27,
         padding: const EdgeInsets.symmetric(vertical: 8.0),
         decoration: BoxDecoration(
           color: color,
